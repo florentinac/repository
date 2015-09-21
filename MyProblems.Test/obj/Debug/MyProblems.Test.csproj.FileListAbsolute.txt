@@ -1,0 +1,8 @@
+c:\users\administrator\documents\visual studio 2015\Projects\MyProblems\MyProblems.Test\bin\Debug\MyProblems.Test.dll
+c:\users\administrator\documents\visual studio 2015\Projects\MyProblems\MyProblems.Test\bin\Debug\MyProblems.Test.pdb
+c:\users\administrator\documents\visual studio 2015\Projects\MyProblems\MyProblems.Test\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+c:\users\administrator\documents\visual studio 2015\Projects\MyProblems\MyProblems.Test\bin\Debug\MyProblems.dll
+c:\users\administrator\documents\visual studio 2015\Projects\MyProblems\MyProblems.Test\bin\Debug\MyProblems.pdb
+c:\users\administrator\documents\visual studio 2015\Projects\MyProblems\MyProblems.Test\obj\Debug\MyProblems.Test.csprojResolveAssemblyReference.cache
+c:\users\administrator\documents\visual studio 2015\Projects\MyProblems\MyProblems.Test\obj\Debug\MyProblems.Test.dll
+c:\users\administrator\documents\visual studio 2015\Projects\MyProblems\MyProblems.Test\obj\Debug\MyProblems.Test.pdb

@@ -1,0 +1,5 @@
+c:\users\administrator\documents\visual studio 2015\Projects\MyProblems\MyProblems\bin\Debug\MyProblems.dll
+c:\users\administrator\documents\visual studio 2015\Projects\MyProblems\MyProblems\bin\Debug\MyProblems.pdb
+c:\users\administrator\documents\visual studio 2015\Projects\MyProblems\MyProblems\obj\Debug\MyProblems.csprojResolveAssemblyReference.cache
+c:\users\administrator\documents\visual studio 2015\Projects\MyProblems\MyProblems\obj\Debug\MyProblems.dll
+c:\users\administrator\documents\visual studio 2015\Projects\MyProblems\MyProblems\obj\Debug\MyProblems.pdb
