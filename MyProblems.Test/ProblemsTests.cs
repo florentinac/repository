@@ -29,7 +29,7 @@ namespace MyProblems.Test
         {
             var probleme = new Problems();
             int kg_fan = probleme.Capre(5,6);
-            Assert.AreEqual(kg_fan, 1080);
+            Assert.AreEqual(kg_fan, 7);
 
         }
 

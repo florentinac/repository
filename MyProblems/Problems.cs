@@ -34,7 +34,7 @@ namespace MyProblems
             int Y_capre = 12;
             int Z_fan = 30;
 
-            return (Z_fan / X_zile * Y_capre) * Q_capre * W_zile;
+            return (Z_fan * Q_capre * W_zile) / (X_zile * Y_capre);
         }
 
         public int[] Ciuperci(int N, int X)
