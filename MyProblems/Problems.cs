@@ -74,11 +74,11 @@ namespace MyProblems
             rata = capital + dobanda_lunara / 100 * (imprumut - capital * 52);
             return rata;          
         }
-        public double Tren(int distanta, int viteza_tren)
+        public float Tren(float distanta, float viteza_tren)
         {
-            double timp = 0;
-            double distanta_pasare = 0;
-            timp = distanta/ viteza_tren;
+            float timp = 0;
+            float distanta_pasare = 0;
+            timp = (distanta/2) /(viteza_tren * 2); 
             distanta_pasare = timp * 2 * viteza_tren;
 
             return distanta_pasare;

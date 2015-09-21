@@ -71,9 +71,9 @@ namespace MyProblems.Test
         public void TrenTest()
         {
             var probleme = new Problems();
-            double distanta_pasare = probleme.Tren(50, 10);
+            float distanta_pasare = probleme.Tren(50, 10);
 
-            Assert.AreEqual(distanta_pasare, 100);
+            Assert.AreEqual(distanta_pasare, 25);
         }
     }
 }
