@@ -28,8 +28,8 @@ namespace MyProblems.Test
         public void CapreTest()
         {
             var probleme = new Problems();
-            int kg_fan = probleme.Capre(5,6);
-            Assert.AreEqual(kg_fan, 7);
+            int kg_fan = probleme.Capre(5, 6, 12, 20, 30);
+            Assert.AreEqual(kg_fan, 3);
 
         }
 
@@ -54,7 +54,7 @@ namespace MyProblems.Test
         public void PavajTest()
         {
             var probleme = new Problems();
-            var piatra = probleme.Pavaj(6, 6);
+            var piatra = probleme.Pavaj(6, 6, 4);
             Assert.AreEqual(piatra, 4);
         }
 

@@ -25,15 +25,12 @@ namespace MyProblems
             return N * N;
         }
 
-        public int Capre(int Q_capre, int W_zile)
+        public int Capre(int Q_capre, int W_zile, int X_zile, int Y_capre, int Z_fan)
         {
             //Y capre mananca intr-o zi Z_fan/X_zile
             //o capra mananca intr-o zi Z_fan/(X_zile*Y_capre)
             //atunci Q_capre mananca in W_zile (Z_fan/X_Zile*Y_capre)*Q_capre*W_zile
-            int X_zile = 10;
-            int Y_capre = 12;
-            int Z_fan = 30;
-
+  
             return (Z_fan * Q_capre * W_zile) / (X_zile * Y_capre);
         }
 
@@ -57,9 +54,8 @@ namespace MyProblems
             return mp_parchet + 15 * mp_parchet / 100; 
         }
 
-        public int Pavaj (int N, int M)
-        {
-            int A = 4;
+        public int Pavaj (int N, int M, int A)
+        {        
             int mp_parchet = (int)Math.Ceiling((double)N/A) * (int)Math.Ceiling((double)M / A);
             return mp_parchet;
         }
