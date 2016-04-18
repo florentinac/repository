@@ -35,7 +35,7 @@ namespace FileCopyApplication
             var copyDirectory = new CopyDirectory(@"C:\Test2", @"C:\Destination");             
             copyDirectory.CopyDirectoryEasier();
 
-            CopyDirectory.CopyDir(@"C:\Test2", @"C:\Dest");
+            copyDirectory.CopyDir(@"C:\Test2", @"C:\Dest");
 
 
         }

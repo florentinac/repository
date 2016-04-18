@@ -13,17 +13,17 @@ namespace FileOperation
         {
             CopyAllFiles();
 
-            var dirs = Directory.GetDirectories(sourcePath);
+            var dirs = Directory.GetDirectories(this.sourcePath);
             foreach (var dir in dirs)
             {
-                destinationFilePath = Path.Combine(destinationFilePath, Path.GetFileName(dir));
-                sourcePath = dir;
+                this.destinationFilePath = Path.Combine(this.destinationFilePath, Path.GetFileName(dir));
+                this.sourcePath = dir;
                 InitialDestinationDirectory();
                 CopyDirRecursiv();
             }
         }
 
-        public static void CopyDir(string srcDirectory, string destDirectory)
+        public void CopyDir(string srcDirectory, string destDirectory)
         {
             if (!Directory.Exists(srcDirectory))
             {
@@ -53,21 +53,23 @@ namespace FileOperation
 
         public void CopyDirectoryEasier()
         {
-            if (!Directory.Exists(sourcePath))
+            if (!Directory.Exists(this.sourcePath))
             {
                 throw new Exception("The source directory does not exists");
             }
+            var directory = new DirectoryInfo(this.sourcePath);
+            Directory.CreateDirectory(this.sourcePath.Replace(directory.Parent.FullName, this.destinationFilePath));
 
-            var dirs = Directory.GetDirectories(sourcePath, "*", SearchOption.AllDirectories);
+            var dirs = Directory.GetDirectories(this.sourcePath, "*", SearchOption.AllDirectories);
             foreach (var dirPath in dirs)
             {
-                Directory.CreateDirectory(dirPath.Replace(sourcePath, destinationFilePath));
+                Directory.CreateDirectory(dirPath.Replace(directory.Parent.FullName, this.destinationFilePath));
             }
 
-            var files = Directory.GetFiles(sourcePath, "*.*", SearchOption.AllDirectories);
+            var files = Directory.GetFiles(this.sourcePath, "*.*", SearchOption.AllDirectories);
             foreach (var file in files)
             {
-                File.Copy(file, file.Replace(sourcePath, destinationFilePath), true);
+                File.Copy(file, file.Replace(directory.Parent.FullName, this.destinationFilePath), true);
             }
         }
     }

@@ -13,20 +13,20 @@ namespace FileOperation
         {
             this.sourcePath = sourcePath;
             this.destinationFilePath = destinationFilePath;
-            InitialDestinationDirectory();
+            this.InitialDestinationDirectory();
         }
 
         public void SimpleFileCopy()
         {
             GetFileName();
-            File.Copy(sourcePath, Path.Combine(destinationFilePath, fileName), true);
+            File.Copy(sourcePath, Path.Combine(this.destinationFilePath, this.fileName), true);
         }
 
         public void CopyAllFiles()
         {
             if (IsDirectory())
             {
-                var files = Directory.GetFiles(sourcePath);
+                var files = Directory.GetFiles(this.sourcePath);
                 foreach (var file in files)
                 {
                     File.Copy(file, Path.Combine(destinationFilePath, Path.GetFileName(file)), true);
@@ -41,8 +41,8 @@ namespace FileOperation
         public void CopyFileUsingFileInfo()
         {
             GetFileName();
-            var file = new FileInfo(sourcePath);
-            file.CopyTo(Path.Combine(destinationFilePath, fileName), true);
+            var file = new FileInfo(this.sourcePath);
+            file.CopyTo(Path.Combine(this.destinationFilePath, this.fileName), true);
         }
 
         public void CopyFileUsingStream()
@@ -55,14 +55,14 @@ namespace FileOperation
 
         protected void InitialDestinationDirectory()
         {
-            Directory.CreateDirectory(destinationFilePath);
+            Directory.CreateDirectory(this.destinationFilePath);
         }
 
         private void GetFileName()
         {
-            if (File.Exists(sourcePath))
+            if (File.Exists(this.sourcePath))
             {
-                fileName = Path.GetFileName(sourcePath);
+                fileName = Path.GetFileName(this.sourcePath);
             }
             else
             {
@@ -74,9 +74,9 @@ namespace FileOperation
         {
             var result = false;
 
-            if (!File.Exists(sourcePath) && !Directory.Exists(sourcePath)) return false;
+            if (!File.Exists(this.sourcePath) && !Directory.Exists(this.sourcePath)) return false;
 
-            var attr = File.GetAttributes(sourcePath);
+            var attr = File.GetAttributes(this.sourcePath);
 
             if ((attr & FileAttributes.Directory) == FileAttributes.Directory)
                 result = true;
@@ -87,7 +87,7 @@ namespace FileOperation
         private string GetFileContent()
         {
             string fileContent;
-            using (var reader = new StreamReader(sourcePath))
+            using (var reader = new StreamReader(this.sourcePath))
             {
                 fileContent = reader.ReadToEnd();
             }
@@ -96,7 +96,7 @@ namespace FileOperation
 
         private void WriteContent(string fileContent)
         {
-            using (var fileStream = File.Create(Path.Combine(destinationFilePath, fileName)))
+            using (var fileStream = File.Create(Path.Combine(this.destinationFilePath, this.fileName)))
             using (var writer = new StreamWriter(fileStream))
             {
                 writer.Write(fileContent);
