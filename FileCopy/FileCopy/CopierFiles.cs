@@ -3,13 +3,13 @@ using System.IO;
 
 namespace FileOperation
 {
-    public class FileCopy
+    public class CopierFiles
     {
         private string fileName;
         protected string sourcePath;
         protected string destinationFilePath;
 
-        public FileCopy(string sourcePath, string destinationFilePath)
+        public CopierFiles(string sourcePath, string destinationFilePath)
         {
             this.sourcePath = sourcePath;
             this.destinationFilePath = destinationFilePath;

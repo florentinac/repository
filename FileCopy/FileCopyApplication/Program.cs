@@ -8,7 +8,7 @@ namespace FileCopyApplication
     {
         private static void Main(string[] args)
         {
-            var fileCopy = new FileCopy(@"C:\Test\xxx.txt", @"C:\Destination");
+            var fileCopy = new CopierFiles(@"C:\Test\xxx.txt", @"C:\Destination");
             try
             {
                 fileCopy.SimpleFileCopy();
@@ -19,7 +19,7 @@ namespace FileCopyApplication
                 Console.WriteLine(ex);
             }
 
-            var allFileCopy = new FileCopy(@"C:\Test3", @"C:\Destination");
+            var allFileCopy = new CopierFiles(@"C:\Test3", @"C:\Destination");
 
             try
             {
@@ -32,12 +32,12 @@ namespace FileCopyApplication
                 Console.WriteLine(ex);
             }
             
-            var copyDirectory = new CopyDirectory(@"C:\Test2", @"C:\Destination");             
+            var copyDirectory = new CopierDirectory(@"C:\Test2", @"C:\Destination");
+            copyDirectory.CopyDirectoryRecursiv();
             copyDirectory.CopyDirectoryEasier();
 
-            copyDirectory.CopyDir(@"C:\Test2", @"C:\Dest");
-
-
+            copyDirectory.CopyDirectory(@"C:\Test2", @"C:\Dest");
+                     
         }
     }
 }

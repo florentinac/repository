@@ -10,7 +10,7 @@ namespace File.test
     public class CopyFileOperationSteps
     {
         private string source;
-        private FileCopy file;
+        private CopierFiles file;
 
         [Given(@"""(.*)"" file")]
         public void GivenFile(string source)
@@ -27,14 +27,14 @@ namespace File.test
         [When(@"I copy in to ""(.*)"" folder")]
         public void WhenICopyInToFolder(string dest)
         {
-            this.file = new FileCopy(source, dest);
+            this.file = new CopierFiles(source, dest);
             this.file.SimpleFileCopy();
         }
         
         [When(@"I copy all the file in to ""(.*)"" folder")]
         public void WhenICopyAllTheFileInToFolder(string dest)
         {
-            this.file = new FileCopy(source, dest);
+            this.file = new CopierFiles(source, dest);
             this.file.CopyAllFiles();
         }
         

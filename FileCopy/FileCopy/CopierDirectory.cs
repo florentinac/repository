@@ -3,51 +3,54 @@ using System.IO;
 
 namespace FileOperation
 {
-    public class CopyDirectory : FileCopy
+    public class CopierDirectory : CopierFiles
     {
-        public CopyDirectory(string sourceDirectory, string destDirectory) : base(sourceDirectory, destDirectory)
+        public CopierDirectory(string sourceDirectory, string destDirectory) : base(sourceDirectory, destDirectory)
         {
         }
 
-        public void CopyDirRecursiv()
+        public void CopyDirectoryRecursiv()
         {
+            
             CopyAllFiles();
 
             var dirs = Directory.GetDirectories(this.sourcePath);
             foreach (var dir in dirs)
             {
                 this.destinationFilePath = Path.Combine(this.destinationFilePath, Path.GetFileName(dir));
-                this.sourcePath = dir;
+                this.sourcePath = dir;  
+                      
                 InitialDestinationDirectory();
-                CopyDirRecursiv();
+                CopyDirectoryRecursiv();
+                this.destinationFilePath = Path.GetDirectoryName(this.destinationFilePath);
             }
         }
 
-        public void CopyDir(string srcDirectory, string destDirectory)
+        public void CopyDirectory(string source, string destination)
         {
-            if (!Directory.Exists(srcDirectory))
+            if (!Directory.Exists(source))
             {
                 throw new Exception("The source directory does not exists");
             }
 
-            if (!Directory.Exists(destDirectory))
+            if (!Directory.Exists(destination))
             {
-                Directory.CreateDirectory(destDirectory);
+                Directory.CreateDirectory(destination);
             }
 
-            var directory = new DirectoryInfo(srcDirectory);
+            var directory = new DirectoryInfo(source);
 
             var files = directory.GetFiles();
             foreach (var file in files)
             {
-                File.Copy(file.FullName, Path.Combine(destDirectory, Path.GetFileName(file.Name)), true);
+                File.Copy(file.FullName, Path.Combine(destination, Path.GetFileName(file.Name)), true);
             }
 
             var dirs = directory.GetDirectories();
             foreach (var dir in dirs)
             {
-                var temppath = Path.Combine(destDirectory, dir.Name);
-                CopyDir(dir.FullName, temppath);
+                var temppath = Path.Combine(destination, dir.Name);
+                CopyDirectory(dir.FullName, temppath);
             }
         }
 
