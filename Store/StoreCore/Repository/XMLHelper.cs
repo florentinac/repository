@@ -11,9 +11,10 @@ using System.Xml.XPath;
 
 namespace StoreCore.Repository
 {
-    internal class XMLHelper<T>
+    internal class XMLHelper<T> 
     {       
         private string fileName;
+
         public XMLHelper(string fileName)
         {
             this.fileName = fileName;              
@@ -21,23 +22,37 @@ namespace StoreCore.Repository
 
         internal void Serialize(T item)
         {                   
-            using (var stream = new FileStream(fileName, FileMode.Append))
-            {
+            using (var stream = new FileStream(fileName, FileMode.OpenOrCreate))
+            {             
                 var serializer = new XmlSerializer(typeof (T));
                 serializer.Serialize(stream, item);
             }
         }
 
-        internal List<T> DeserializeList()
+        internal T DeserializeList()
         {
-            var products = new List<T>();
+            T products;
             using (var stream = new FileStream(fileName, FileMode.Open))
             {
-                var serializer = new XmlSerializer(typeof(List<T>));
-                products = (List<T>)serializer.Deserialize(stream);
+                var serializer = new XmlSerializer(typeof(T));
+                products = (T)serializer.Deserialize(stream);
 
                 return products;
             }
-        }        
+        }
+
+        internal void UpdateXmlSerialize(T item)
+        {
+            var itemsUpdate = new List<T>();
+
+            var repozitory = new XMLRepository<List<T>, int>(fileName);
+            var items = DeserializeList();
+            
+            itemsUpdate.Add(items);
+            itemsUpdate.Add(item);
+            
+            repozitory.Add(itemsUpdate);
+        }
+
     }
 }

@@ -10,11 +10,14 @@ namespace StoreCore.Repository
         private string fileName;
         private string fullPath;
 
+        private XMLHelper<T> xml; 
+
         public XMLRepository(string fullPath)
         {
             this.fullPath = fullPath;
             this.path = Path.GetDirectoryName(this.fullPath);
             this.fileName = Path.GetFileName(this.fullPath);
+            xml = new XMLHelper<T>(this.fullPath);
             InitializeDirectory();
         }
        
@@ -25,8 +28,7 @@ namespace StoreCore.Repository
             {
                 throw  new Exception("The file doesn't exists!");
             }
-            var xml = new XMLHelper<T>(fullPath);
-            xml.DeserializeList();    
+            result.Add(xml.DeserializeList());    
 
             return result;
         }
@@ -37,9 +39,13 @@ namespace StoreCore.Repository
         }
 
         public void Add(T element)
+        {        
+            xml.Serialize(element);          
+        }
+
+        public void AddNewEntryInXml(T entry)
         {
-            var xml = new XMLHelper<T>(fullPath);
-            xml.Serialize(element);
+            xml.UpdateXmlSerialize(entry);
         }
 
         public void Update(key id, T element)

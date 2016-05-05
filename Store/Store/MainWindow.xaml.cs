@@ -26,44 +26,19 @@ namespace Store
         public MainWindow()
         {
             InitializeComponent();
-            
-        }
-
-        private void button_Click(object sender, RoutedEventArgs e)
-        {
-            //var repo = new Repozitory<Product, int>("Test2",@"Florentina-PC\SQLEXPRESS","sa","12345xx**");
             var repository = new XMLRepository<List<Product>, int>(@"Repository\test.txt");
-            var product1 = new Product { Category = "Food", Id = 3, Name = "bread", Price = 10, Stock = 2 };
-            var product2 = new Product { Category = "Fruits", Id = 2, Name = "appel", Price = 10, Stock = 2 };
+            var product1 = new Product { Category = "Food", Id = 4, Name = "bread", Price = 10, Stock = 2 };
+            var product2 = new Product { Category = "Fruits", Id = 5, Name = "appel", Price = 10, Stock = 3 };
             var products = new List<Product>();
             products.Add(product1);
             products.Add(product2);
-            //repository.Add(products);
-            var products2 = new List<Product> { new Product { Category = "Fruits", Id = 4, Name = "appel", Price = 10, Stock = 2 } };
-            repository.Add(products2);
-            //repository.Add(product2);
-            var pro = repository.GetAll();
-        }
-
-        private List<Product> GetAllProduct()
-        {
-            var result = new List<Product>();
-            using (var db = new StoreDBContext())
+            repository.AddNewEntryInXml(products);      
+           
+            foreach (var product in repository.GetAll())
             {
-                var product = new Product { Category = "Food", Id = 1, Name = "bread", Price = 10, Stock = 2 };
-                db.Products.Add(product);
-                db.SaveChanges();
-                var query = from p in db.Products
-                            orderby p.Name
-                            select p;
-                foreach (var item in query)
-                {
-                    result.Add(item);
-                }
-            }
-
-            return result;
-        }
+                ProductsList.ItemsSource = product;
+            }          
+        }             
     }
 }
 
