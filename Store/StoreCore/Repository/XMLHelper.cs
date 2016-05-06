@@ -11,48 +11,45 @@ using System.Xml.XPath;
 
 namespace StoreCore.Repository
 {
-    internal class XMLHelper<T> 
-    {       
-        private string fileName;
+    internal class XMLHelper
+    {
 
-        public XMLHelper(string fileName)
+        internal string Serialize<T>(T item)
         {
-            this.fileName = fileName;              
-        }
-
-        internal void Serialize(T item)
-        {                   
-            using (var stream = new FileStream(fileName, FileMode.OpenOrCreate))
-            {             
-                var serializer = new XmlSerializer(typeof (T));
-                serializer.Serialize(stream, item);
-            }
-        }
-
-        internal T DeserializeList()
-        {
-            T products;
-            using (var stream = new FileStream(fileName, FileMode.Open))
+            string result;
+            var serializer = new XmlSerializer(typeof(T));
+            var xmlWriterSettings = new XmlWriterSettings
+            {           
+                CloseOutput = false,
+                OmitXmlDeclaration = true,
+                Indent = true
+            };
+            var xmlNameSpace = new XmlSerializerNamespaces();
+            xmlNameSpace.Add("","");
+             
+            using (var stringWriter = new StringWriter())
             {
-                var serializer = new XmlSerializer(typeof(T));
-                products = (T)serializer.Deserialize(stream);
-
-                return products;
+                using (var xmlWriter = XmlWriter.Create(stringWriter, xmlWriterSettings))
+                {
+                    serializer.Serialize(xmlWriter, item, xmlNameSpace);
+                    result = stringWriter.ToString();
+                }
             }
-        }
 
-        internal void UpdateXmlSerialize(T item)
+            return result;
+        }        
+
+        internal T Deserialize<T>(string serializedItem)
         {
-            var itemsUpdate = new List<T>();
+            T item;
+            var serializer = new XmlSerializer(typeof(T));
 
-            var repozitory = new XMLRepository<List<T>, int>(fileName);
-            var items = DeserializeList();
-            
-            itemsUpdate.Add(items);
-            itemsUpdate.Add(item);
-            
-            repozitory.Add(itemsUpdate);
+            using (var stringReader = new StringReader(serializedItem))
+            {
+                item = (T)serializer.Deserialize(stringReader);
+            }
+
+            return item;
         }
-
     }
 }

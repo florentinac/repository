@@ -26,18 +26,22 @@ namespace Store
         public MainWindow()
         {
             InitializeComponent();
-            var repository = new XMLRepository<List<Product>, int>(@"Repository\test.txt");
+            var repository = new XMLRepository<Product, int>(@"Repository\test.txt");
             var product1 = new Product { Category = "Food", Id = 4, Name = "bread", Price = 10, Stock = 2 };
             var product2 = new Product { Category = "Fruits", Id = 5, Name = "appel", Price = 10, Stock = 3 };
-            var products = new List<Product>();
-            products.Add(product1);
-            products.Add(product2);
-            repository.AddNewEntryInXml(products);      
-           
+            var products = new List<Product> { new Product { Category = "Food", Id = 4, Name = "bread", Price = 10, Stock = 2 } ,
+                                               new Product { Category = "Fruits", Id = 5, Name = "appel", Price = 10, Stock = 3 }};
+                
+            
+            repository.Add(product2);
+            var pro = repository.GetById(5);
+            var result = repository.GetAll();
+            repository.Update(4, product2);
+
             foreach (var product in repository.GetAll())
             {
-                ProductsList.ItemsSource = product;
-            }          
+                ProductsList.ItemsSource = product.ToString();
+            }
         }             
     }
 }

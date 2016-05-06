@@ -17,5 +17,10 @@ namespace StoreCore.Repository
         public string Category { get; set; }
         [XmlElement("Stock")]
         public int Stock { get; set; }
+
+        public override string ToString()
+        {
+            return Name + Category;
+        }
     }
 }

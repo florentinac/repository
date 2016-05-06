@@ -1,59 +1,136 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Text;
+using System.Xml;
+using System.Xml.XPath;
 
 namespace StoreCore.Repository
 {
-    public class XMLRepository<T, key> : IRepository<T, key>
+    public class XMLRepository<T, Key> : IRepository<T, Key> where T: IIndexable
     {
         private string path;
-        private string fileName;
         private string fullPath;
 
-        private XMLHelper<T> xml; 
+        private XPathNavigator navigator;
+        private XMLHelper xmlHelper; 
+
 
         public XMLRepository(string fullPath)
         {
             this.fullPath = fullPath;
             this.path = Path.GetDirectoryName(this.fullPath);
-            this.fileName = Path.GetFileName(this.fullPath);
-            xml = new XMLHelper<T>(this.fullPath);
+            //this.navigator = new XPathDocument(this.fullPath).CreateNavigator();
+
+            this.xmlHelper = new XMLHelper();
             InitializeDirectory();
         }
        
         public IEnumerable<T> GetAll()
         {
-            var result = new List<T>();
             if (!CheckIfFieExists())
             {
                 throw  new Exception("The file doesn't exists!");
             }
-            result.Add(xml.DeserializeList());    
 
+            var result = new List<T>();
+
+            using (var fileStream = File.OpenRead(fullPath))
+            {
+                using (var read = new StreamReader(fileStream))
+                {
+                    var serializedObject = read.ReadToEnd();
+                    result = xmlHelper.Deserialize<List<T>>(serializedObject);
+                }
+            }  
+                  
             return result;
         }
 
-        public T GetById(key id)
+        public T GetById(Key id)
+        { 
+            var products = GetAll();
+            foreach (var product in products)
+            {
+                if (product.Id.Equals(id))
+                {
+                    return product;
+                }
+            }
+
+            return default(T);
+        }        
+       
+        public void Add(T newItem)
         {
-            throw new NotImplementedException();
+            if (!CheckIfFieExists())
+            {
+                AddFirstItem(newItem);
+            }
+            else
+            {               
+                WriteInXml(AddNewItemInList(newItem));
+            }
         }
 
-        public void Add(T element)
-        {        
-            xml.Serialize(element);          
-        }
-
-        public void AddNewEntryInXml(T entry)
+        private void AddFirstItem(T item)
         {
-            xml.UpdateXmlSerialize(entry);
+            var items = new List<T>();
+            items.Add(item);
+            WriteInXml(items);
         }
 
-        public void Update(key id, T element)
+        private void WriteInXml(List<T> items)
         {
-            throw new NotImplementedException();
+            var objectSerialize = xmlHelper.Serialize(items);
+
+            using (var fileStream = File.Create(fullPath))
+            {
+                using (var writer = new StreamWriter(fileStream))
+                {
+                    writer.Write(objectSerialize);
+                }
+            }
         }
 
-        public void Delete(key id)
+        private List<T> AddNewItemInList(T newItem)
+        {
+            var items = GetAll().ToList();
+
+            items.Add(newItem);
+
+            return items;
+        }
+
+        public void Update(Key id, T element)
+        {
+            SaveXmlContains();
+            var xPathIterator = navigator.Select("/ArrayOfProduct//Product");
+            var names = new List<string>();
+            foreach (XPathNavigator product in xPathIterator)
+            {
+                var name = product.SelectSingleNode("Name").Value;
+                names.Add(name);
+            }
+        }
+
+        public string SaveXmlContains()
+        {
+            try
+            {
+                var document = new XPathDocument(this.fullPath);
+                this.navigator = document.CreateNavigator();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }            
+        
+            return navigator.OuterXml;
+        }
+
+        public void Delete(Key id)
         {
             throw new NotImplementedException();
         }
@@ -65,7 +142,7 @@ namespace StoreCore.Repository
 
         private bool CheckIfFieExists()
         {
-            return File.Exists(Path.Combine(path, fileName));
+            return File.Exists(Path.Combine(path, Path.GetFileName(this.fullPath)));
         }
 
     }
