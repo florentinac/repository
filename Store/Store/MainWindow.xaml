@@ -7,15 +7,20 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        <ListBox x:Name="ProductsList" BorderThickness="0" ItemsSource="{Binding}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel>
-                        <TextBlock Text="{Binding Name}"/>
-                        <TextBlock Text="{Binding Stock}"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height ="30"/>
+            <RowDefinition Height ="10"/>
+            <RowDefinition Height ="*"/>
+        </Grid.RowDefinitions>
+        <ListBox x:Name="ProductsList"
+                 ItemsSource="{Binding}"
+                 Grid.Column="0"
+                 Grid.Row="2">
         </ListBox>
 
     </Grid>

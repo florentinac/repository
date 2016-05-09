@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace StoreCore.Tests
 {
     [TestClass]
-    public class UnitTest1
+    public class ProductRepository
     {
         [TestMethod]
         public void TestMethod1()

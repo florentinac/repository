@@ -27,21 +27,28 @@ namespace Store
         {
             InitializeComponent();
             var repository = new XMLRepository<Product, int>(@"Repository\test.txt");
-            var product1 = new Product { Category = "Food", Id = 4, Name = "bread", Price = 10, Stock = 2 };
-            var product2 = new Product { Category = "Fruits", Id = 5, Name = "appel", Price = 10, Stock = 3 };
+            var product1 = new Product { Category = "Food", Name = "bread", Price = 10, Stock = 2 };
+            var product2 = new Product { Category = "Fruits", Name = "appel", Price = 10, Stock = 3 };
             var products = new List<Product> { new Product { Category = "Food", Id = 4, Name = "bread", Price = 10, Stock = 2 } ,
                                                new Product { Category = "Fruits", Id = 5, Name = "appel", Price = 10, Stock = 3 }};
                 
-            
-            repository.Add(product2);
-            var pro = repository.GetById(5);
-            var result = repository.GetAll();
-            repository.Update(4, product2);
+            //repository.Delete(3);
+            //var productRepository = new ProductRepository(@"Repository\test.txt");        
+            //productRepository.UpdateStock(4);
+           // repository.Add(product2);
+            //var pro = repository.GetById(5);
 
-            foreach (var product in repository.GetAll())
-            {
-                ProductsList.ItemsSource = product.ToString();
-            }
+            var productRepository = new ProductRepository(@"Repository\test.txt");
+            repository.Update(3, product1);
+            var result = productRepository.GetAll();
+            var foodProduct = productRepository.GetByCategory("Fruits");
+
+            ProductsList.ItemsSource = result;
+            ProductsList.ItemsSource = foodProduct;
+
+
+
+
         }             
     }
 }
