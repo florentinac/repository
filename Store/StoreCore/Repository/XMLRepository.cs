@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Xml;
-using System.Xml.XPath;
 
 namespace StoreCore.Repository
 {
@@ -12,16 +9,15 @@ namespace StoreCore.Repository
     {
         private string path;
         protected string fullPath;
-
-        private XPathNavigator navigator;
+        private string tabelName;
         private XMLHelper xmlHelper;
         protected XmlDocument document;
 
-
-        public XMLRepository(string fullPath)
-        {
+        public XMLRepository(string fullPath, string tabelName)
+        {         
             this.fullPath = fullPath;
             this.path = Path.GetDirectoryName(this.fullPath);
+            this.tabelName = tabelName;
 
             this.document = new XmlDocument();
             this.document.Load(this.fullPath);
@@ -65,15 +61,15 @@ namespace StoreCore.Repository
             return default(T);
         }        
        
-        public void Add(T newItem)
+        public void Add(T item)
         {
             if (!CheckIfFieExists())
             {
-                this.AddFirstItem(newItem);
+                this.AddFirstItem(item);
             }
             else
             {               
-                this.WriteInXml(this.AddNewItemInList(newItem));
+                this.AddNewItem(item);
             }
         }
 
@@ -98,52 +94,45 @@ namespace StoreCore.Repository
             }
         }
 
-        private List<T> AddNewItemInList(T newItem)
+        private void AddNewItem(T item)
         {
-            var items = this.GetAll().ToList();
+            item.Id = document.SelectNodes("/ArrayOf" + tabelName + "/" + tabelName).Count + 1;
+            var serializedElement = xmlHelper.Serialize(item);
 
-            newItem.Id = items.Count + 1;
-            items.Add(newItem);
+            var newNode = document.CreateNode(XmlNodeType.Element, "ArrafyOf"+tabelName, null);
+            newNode.InnerXml = serializedElement;
 
-            return items;
+            var node = newNode.SelectSingleNode(tabelName);
+            document.DocumentElement.AppendChild(node);
+
+            document.Save(this.fullPath);
         }
 
         public virtual void Update(Key id, T element)
-        {                   
-            var serialize = xmlHelper.Serialize(element);
-
-            XmlNode xnode = document.CreateNode(XmlNodeType.Element,"Product", null);
-
-            xnode.InnerXml = serialize;
-            document.DocumentElement.AppendChild(xnode);
-
-            document.Save(this.fullPath);
-            //Console.WriteLine(navigator.OuterXml);
-        }
-
-        public string SaveXmlContains()
-        {
-            try
-            {             
-                this.navigator = this.document.CreateNavigator();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-            }            
-        
-            return this.navigator.OuterXml;
-        }
+        {          
+        }      
 
         public void Delete(Key id)
         {
-            var nodeToDelete = this.document.SelectSingleNode("/ArrayOfProduct/Product[@ID='" + id + "']");
+            var nodeToDelete =
+                this.document.SelectSingleNode("/ArrayOf" + tabelName + "/" + tabelName + "[@ID='" + id + "']");
+            UpdateIDNodes(id);
             if (nodeToDelete != null)
             {
                 nodeToDelete.ParentNode.RemoveChild(nodeToDelete);               
                 this.document.Save(this.fullPath);
             }
-        }        
+        }
+
+        private void UpdateIDNodes(Key id)
+        {
+            var nodetoUpdateId =
+                this.document.SelectNodes("/ArrayOf" + tabelName + " / " + tabelName + "[@ID > '" + id + "']");
+            foreach (XmlNode node in nodetoUpdateId)
+            {
+                node.Attributes["ID"].Value = (int.Parse(node.Attributes["ID"].Value) - 1).ToString();
+            }
+        }
 
         private void InitializeDirectory()
         {
@@ -154,6 +143,5 @@ namespace StoreCore.Repository
         {
             return File.Exists(Path.Combine(this.path, Path.GetFileName(this.fullPath)));
         }
-
     }
 }

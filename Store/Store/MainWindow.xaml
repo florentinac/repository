@@ -8,7 +8,7 @@
         Title="MainWindow" Height="350" Width="525">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="130"/>
             <ColumnDefinition Width="10"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
@@ -20,8 +20,19 @@
         <ListBox x:Name="ProductsList"
                  ItemsSource="{Binding}"
                  Grid.Column="0"
-                 Grid.Row="2">
+                 Grid.Row="2"
+                 Mouse.MouseDown="ListBox_MouseDown">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <ListBoxItem Margin="10" Content="{Binding Name}" Height="25" 
+                                             BorderBrush="#FF404040" BorderThickness="0,0.25" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
         </ListBox>
-
+        <Image x:Name="ProductImage"                                         
+               Grid.Column="2"              
+               Grid.Row="2"
+               Stretch="Fill"
+               Margin =" 0,0,300,200"/>
     </Grid>
 </Window>

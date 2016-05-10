@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
+using System.IO;
+using System.Windows.Media.Imaging;
 
 namespace StoreCore.Repository
 {
     public class ProductRepository:XMLRepository<Product,int>
     {
-        public ProductRepository(string fullPath) : base(fullPath)
+        public ProductRepository(string fullPath, string tabelName) : base(fullPath, tabelName)
         {
         }
 
@@ -17,7 +15,7 @@ namespace StoreCore.Repository
         {         
             var productToUpdate = this.document.SelectSingleNode("/ArrayOfProduct/Product[@ID='" + id + "']");
 
-            var stock = Int32.Parse(productToUpdate["Stock"].InnerText);
+            var stock = int.Parse(productToUpdate["Stock"].InnerText);
             productToUpdate["Stock"].InnerText = (--stock).ToString();
             
             document.Save(this.fullPath);
@@ -34,12 +32,10 @@ namespace StoreCore.Repository
                 newProduct["Stock"].InnerText = product.Stock.ToString();
             }
             document.Save(this.fullPath);
-
         }
 
         public IEnumerable<Product> GetByCategory(string category)
         {
-            //var products = this.document.SelectNodes("/ArrayOfProduct/Product[Category='" + category + "']");
             var products = this.GetAll();
             var result = new List<Product>();
             foreach (var product in products)
@@ -49,7 +45,27 @@ namespace StoreCore.Repository
                     result.Add(product);
                 }
             }
+
             return result;
+        }
+
+        public BitmapImage GetImageByID(int id)
+        {
+            var products = this.GetAll();
+            var image = new BitmapImage();
+
+            foreach (var product in products)
+            {
+                if (product.Id.Equals(id))
+                {
+                    image.BeginInit();
+                    image.UriSource = new Uri(Directory.GetCurrentDirectory() + product.Image);
+                    image.EndInit();
+                    return image;
+                }
+            }     
+                         
+            return image;
         }
     }
 }

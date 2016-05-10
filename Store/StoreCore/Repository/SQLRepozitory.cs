@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.IO;
 
 namespace StoreCore.Repository
 {
@@ -27,7 +26,7 @@ namespace StoreCore.Repository
             throw new NotImplementedException();
         }
 
-        public void Add(T element)
+        public void Add(T item)
         {
             throw new NotImplementedException();
         }

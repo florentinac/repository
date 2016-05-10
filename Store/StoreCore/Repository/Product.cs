@@ -1,6 +1,4 @@
-﻿
-using System.ComponentModel;
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
 
 namespace StoreCore.Repository
 {
@@ -17,10 +15,12 @@ namespace StoreCore.Repository
         public string Category { get; set; }
         [XmlElement("Stock")]
         public int Stock { get; set; }
+        [XmlElement("Image")]
+        public string Image { get; set; }
 
         public override string ToString()
         {
-            return Name + Category;
+            return Name + " " + Category;
         }
     }
 }

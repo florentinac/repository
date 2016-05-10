@@ -6,7 +6,7 @@ namespace StoreCore.Repository
     {
         IEnumerable<T> GetAll();
         T GetById(Key id);
-        void Add(T element);
+        void Add(T item);
         void Update(Key id, T element);
         void Delete(Key id);
     }
