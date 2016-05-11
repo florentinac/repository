@@ -67,5 +67,21 @@ namespace StoreCore.Repository
                          
             return image;
         }
+
+        public IEnumerable<string> GetAllCategory()
+        {
+            var products = this.GetAll();
+            var result = new List<string>();
+
+            foreach (var product in products)
+            {
+                if (!result.Contains(product.Category))
+                {
+                    result.Add(product.Category);
+                }
+            }
+
+            return result;
+        }
     }
 }

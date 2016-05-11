@@ -53,6 +53,12 @@
     <Compile Include="ProductRepository.Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\StoreCore\StoreCore.csproj">
+      <Project>{5f046ce1-3161-42fb-bcb9-c05b14719b5c}</Project>
+      <Name>StoreCore</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

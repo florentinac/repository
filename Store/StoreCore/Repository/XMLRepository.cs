@@ -99,7 +99,7 @@ namespace StoreCore.Repository
             item.Id = document.SelectNodes("/ArrayOf" + tabelName + "/" + tabelName).Count + 1;
             var serializedElement = xmlHelper.Serialize(item);
 
-            var newNode = document.CreateNode(XmlNodeType.Element, "ArrafyOf"+tabelName, null);
+            var newNode = document.CreateNode(XmlNodeType.Element, "ArrafyOf" + tabelName, null);
             newNode.InnerXml = serializedElement;
 
             var node = newNode.SelectSingleNode(tabelName);
@@ -116,7 +116,7 @@ namespace StoreCore.Repository
         {
             var nodeToDelete =
                 this.document.SelectSingleNode("/ArrayOf" + tabelName + "/" + tabelName + "[@ID='" + id + "']");
-            UpdateIDNodes(id);
+            UpdateIdNodes(id);
             if (nodeToDelete != null)
             {
                 nodeToDelete.ParentNode.RemoveChild(nodeToDelete);               
@@ -124,10 +124,10 @@ namespace StoreCore.Repository
             }
         }
 
-        private void UpdateIDNodes(Key id)
+        private void UpdateIdNodes(Key id)
         {
             var nodetoUpdateId =
-                this.document.SelectNodes("/ArrayOf" + tabelName + " / " + tabelName + "[@ID > '" + id + "']");
+                this.document.SelectNodes("/ArrayOf" + tabelName + "/" + tabelName + "[@ID>'" + id + "']");
             foreach (XmlNode node in nodetoUpdateId)
             {
                 node.Attributes["ID"].Value = (int.Parse(node.Attributes["ID"].Value) - 1).ToString();

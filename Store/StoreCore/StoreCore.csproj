@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Repository\Address.cs" />
+    <Compile Include="Repository\Category.cs" />
     <Compile Include="Repository\ProductRepository.cs" />
     <Compile Include="Repository\StoreDBContext.cs" />
     <Compile Include="Repository\Tranzaction.cs" />

@@ -1,19 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Configuration;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using StoreCore;
 using StoreCore.Repository;
 
 namespace Store
@@ -34,20 +21,49 @@ namespace Store
             productRepository.Add(product2);
             productRepository.Add(product1);
             productRepository.Delete(5);
-            var result = productRepository.GetAll();
-            var foodProduct = productRepository.GetByCategory("Fruits");
+            var result = productRepository.GetAllCategory();
 
-            ProductsList.ItemsSource = result;
-            ProductsList.ItemsSource = foodProduct;
-
-           // ProductImage.Source =productRepository.GetImageByID(3);
-                
+            ProductsList.ItemsSource = result;                                   
         }
 
-        private void ListBox_MouseDown(object sender, MouseButtonEventArgs e)
+        private void OuterListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {            
+            var item = ProductsList.SelectedItem;
+            if (item != null)
+            {
+                var productRepository = new ProductRepository(@"Repository\test.txt", "Product");
+                var products = productRepository.GetByCategory(item.ToString());
+                ProductImage.Source = productRepository.GetImageByID(4); 
+                                             
+            }
+            var product1 = new Product { Category = "Food", Name = "bread", Price = 10, Stock = 2, Image = @"\Repository\bread.jpg" };
+            NameLabel.Content = product1.Name;
+            DescriptionLabel.Content = "This is a good bread";
+            PriceLabel.Content = product1.Price + " lei";
+            SetStockMessage(product1);
+        }
+
+        private void SetStockMessage(Product product1)
+        {
+            if (product1.Stock == 0)
+            {
+                StockLabel.Content = "Unavailable stock";
+            }
+            else if (product1.Stock <= 5)
+            {
+                StockLabel.Content = "Few in stock";
+            }
+            else
+            {
+                StockLabel.Content = "In stock";
+            }
+        }
+
+        private void BuyButton_Click(object sender, RoutedEventArgs e)
         {
             var productRepository = new ProductRepository(@"Repository\test.txt", "Product");
-            ProductImage.Source = productRepository.GetImageByID(3);
+            productRepository.UpdateStock(6);
+            MessageBox.Show("The product was added to the cart");
         }
     }
 }
