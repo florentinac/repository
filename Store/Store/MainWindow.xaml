@@ -26,29 +26,9 @@
                  Grid.Column="0" Grid.Row="2" Grid.RowSpan="3"         
                  SelectionChanged="OuterListBox_SelectionChanged">
         </ListBox>
-        <Image x:Name="ProductImage"                                         
-               Grid.Column="2" Grid.Row="2"
-               Stretch="Fill"
-               HorizontalAlignment="Center" Margin="20,20,20,20"/>
-        <Button  x:Name ="BuyButton"
-                 Content="Buy product"                
-                 Click="BuyButton_Click"
-                 Grid.Row="2" Grid.Column="5" Width="100" Height="40" Margin="20,100,20,44"></Button>
-        <Label  x:Name ="PriceLabel" Grid.Row="2" Grid.Column="5" Target="{Binding}" 
-                  HorizontalAlignment="Stretch" Margin ="33,44,33,107" VerticalAlignment="Stretch"
-                  FontSize="18" FontFamily="Calibri" Foreground="Red"/>
-        <Label x:Name ="StockLabel" Grid.Row="2" Grid.Column="5" Content="{Binding}" 
-               VerticalAlignment="Stretch" Margin="25,68,25,85" HorizontalAlignment="Stretch"
-               FontSize="14" FontFamily="Calibri" Foreground="Blue"/>
-        <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="3" HorizontalAlignment="Center" Margin="27,27,10,0" Width="224">
-            <Label x:Name ="NameLabel" Content="{Binding}" 
-                   FontSize="20" FontFamily="Calibri" FontWeight="Bold"/>
-            <Label x:Name ="DescriptionLabel" Content="{Binding}"/>
-        </StackPanel>
-        <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Content="Category of products"
-               FontSize="20" FontFamily="Calibri" FontWeight="Bold"/>
-        <Label Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2" Content="All Products"
-               FontSize="20" FontFamily="Calibri" FontWeight="Bold"
-               HorizontalAlignment="Center"/>
+        <ScrollViewer VerticalScrollBarVisibility="Auto"
+                      Grid.Row="2" Grid.RowSpan="3" Grid.Column="2" Grid.ColumnSpan="4">
+            <StackPanel x:Name="StackPanel"/>
+        </ScrollViewer>
     </Grid>
 </Window>
