@@ -31,7 +31,7 @@ namespace Store
         }
 
         private void OuterListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {            
+        {                     
             StackPanel.Children.Clear();
             var item = ProductsList.SelectedItem;
             if (item != null)
@@ -40,11 +40,13 @@ namespace Store
                 var products = productRepository.GetByCategory(item.ToString());
                 foreach (var product in products)
                 {
-                    var grid = CreateGridDinamicaly(StackPanel);
-                    CreateButton("Buy Product","BuyProduct",grid);
-                    AddImage(productRepository.GetImageByID(product.Id), grid);
-                    CreateLabelNameDynamically(grid,product.Name);
-                    CreateLabelDescriptionDynamically(grid,"This should be a product description!");
+                    var productControl = new ProductControl(product);
+                    StackPanel.Children.Add(productControl);
+                    //var grid = CreateGridDinamicaly(StackPanel);
+                    //CreateButton("Buy Product","BuyProduct",grid);
+                    //AddImage(productRepository.GetImageByID(product.Id), grid);
+                    //CreateLabelNameDynamically(grid,product.Name);
+                    //CreateLabelDescriptionDynamically(grid, "This should be a product descriptioThis should be a product description! This should be a product description!");
                 }                                                           
             }
         }
@@ -146,8 +148,7 @@ namespace Store
                 Name = "DescriptionLabel",
                 Width = 240,
                 Height = 50,
-                Foreground = new SolidColorBrush(Colors.Black),
-                Content = Environment.NewLine + content,
+                Foreground = new SolidColorBrush(Colors.Black), 
                 FontSize = 14,                            
             };
 
@@ -155,6 +156,7 @@ namespace Store
             Grid.SetRow(dynamicLabel, 0);
             TextBlock txtBlock = new TextBlock();
             txtBlock.TextWrapping = TextWrapping.Wrap;
+            txtBlock.Text = Environment.NewLine + content;
             dynamicLabel.Content = txtBlock;
             grid.Children.Add(dynamicLabel);
             
