@@ -7,9 +7,10 @@
              mc:Ignorable="d" d:DesignWidth="300" Height="117.711">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="33*"/>
-            <ColumnDefinition Width="33*"/>
-            <ColumnDefinition Width="33*"/>
+            <ColumnDefinition Width="40*"/>
+            <ColumnDefinition Width="50*"/>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="30*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="20*"/>
@@ -21,27 +22,25 @@
                Grid.Column="0" Grid.Row="0" Grid.RowSpan="4"
                Margin="10">
         </Image>
-        <Button x:Name ="BuyButton"
-                Grid.Row="2" Grid.Column="2"
-                Height="25" Width="80"
-                Content ="Buy Product"
-                Click ="BuyButton_OnClick ">
-        </Button>
-        <Label x:Name ="StockLabel"
-               Grid.Row="1" Grid.Column="2"
-               HorizontalAlignment="Center" VerticalAlignment="Center"
-               Content="{Binding}"/>
-        <Label x:Name ="PriceLabel"
-               Grid.Row="0" Grid.Column="2"
-               HorizontalAlignment="Center" VerticalAlignment="Bottom"
-               Content="{Binding}"/>
-        <Label x:Name ="NameLabel"
-               Grid.Row="0" Grid.Column="1"
-               HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,14,0,0"
-               Content="{Binding}" Height="25" Width="67"/>
-        <Label x:Name ="DescriptionLabel"
-               Grid.Row="1" Grid.Column="1" Grid.RowSpan="3"
-               HorizontalAlignment="Left" VerticalAlignment="top" Margin="10"
-               Content="{Binding}"/>
+        <StackPanel Grid.Column="1" Grid.Row="0" Grid.RowSpan="4">
+            <DockPanel VerticalAlignment="Center" Margin="0,20,0,0">
+                <TextBlock x:Name ="ProductName" Text="{Binding}" FontWeight="Bold" FontSize="18"/>
+            </DockPanel>
+            <DockPanel VerticalAlignment="Center">
+                <TextBlock x:Name ="ProductDescription" Text="{Binding}" FontSize="14" TextWrapping="Wrap"/>
+            </DockPanel>
+        </StackPanel>
+        <StackPanel Grid.Row="0" Grid.Column="3" Grid.RowSpan="4">
+            <DockPanel VerticalAlignment="Center" Margin="0,20,0,0">
+                <TextBlock x:Name ="ProductPrice" Text="{Binding}" Foreground="Red" FontSize="18"/>
+            </DockPanel>
+            <DockPanel VerticalAlignment="Center">
+                <TextBlock x:Name ="ProductStock" Text="{Binding}" FontSize="14" />
+            </DockPanel>
+            <DockPanel VerticalAlignment="Center">
+                <Button x:Name ="BuyButton" Width="70" HorizontalAlignment="Left"
+                        Content ="Buy Product" FontSize ="12" Click ="BuyButton_OnClick "/>
+            </DockPanel>
+        </StackPanel>
     </Grid>
 </UserControl>

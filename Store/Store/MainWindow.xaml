@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Store"
         mc:Ignorable="d"
-        Title="Store" Height="630.65" Width="734.133">
+        Title="Store" FontSize="20" Height="630.65" Width="734.133">
     <Grid Margin="0,0,2,-3">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="130"/>
@@ -16,19 +16,18 @@
             <ColumnDefinition Width="20*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height ="40"/>
+            <RowDefinition Height ="70"/>
             <RowDefinition Height ="10"/>
             <RowDefinition Height ="30*"/>
             <RowDefinition Height ="30*"/>
             <RowDefinition Height ="30*"/>
         </Grid.RowDefinitions>
-        <ListBox x:Name="ProductsList" ItemsSource="{Binding}"
-                 Grid.Column="0" Grid.Row="2" Grid.RowSpan="3"         
-                 SelectionChanged="OuterListBox_SelectionChanged">
-        </ListBox>
-        <ScrollViewer VerticalScrollBarVisibility="Auto"
-                      Grid.Row="2" Grid.RowSpan="3" Grid.Column="2" Grid.ColumnSpan="4">
-            <StackPanel x:Name="StackPanel"/>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.ColumnSpan="4" Grid.RowSpan="3" Grid.Column="2" Grid.Row="2">
+            <StackPanel x:Name="ProductStackPanel"/>
         </ScrollViewer>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.RowSpan="3" Grid.Column="0" Grid.Row="2">
+            <StackPanel x:Name="CategoryListStackPanel"/>
+        </ScrollViewer>
+        <StackPanel x:Name="HeaderStackPanel" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="6"/>
     </Grid>
 </Window>

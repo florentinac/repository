@@ -19,13 +19,20 @@ namespace StoreCore.Repository
             this.path = Path.GetDirectoryName(this.fullPath);
             this.tabelName = tabelName;
 
-            this.document = new XmlDocument();
-            this.document.Load(this.fullPath);
-
+            InitalizeXmlDocument();
             this.xmlHelper = new XMLHelper();
             InitializeDirectory();
         }
-       
+
+        private void InitalizeXmlDocument()
+        {
+            if (CheckIfFieExists())
+            {
+                this.document = new XmlDocument();
+                this.document.Load(this.fullPath);
+            }
+        }
+
         public IEnumerable<T> GetAll()
         {
             if (!CheckIfFieExists())
