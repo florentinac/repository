@@ -18,12 +18,15 @@ namespace Store
             var product2 = new Product { Category = "Fruits", Name = "Kiwi", Price = 9.99, Stock = 3, Image = @"\Repository\kiwi.jpg"};
             var product3 = new Product { Category = "Clothes", Name = "Dress", Price = 70, Stock = 5, Image = @"\Repository\dress.jpg" };
             var product4 = new Product { Category = "Clothes", Name = "T-shirt", Price = 24.99, Stock = 5, Image = @"\Repository\Tshirt.jpg" };
-            var productRepository = new ProductRepository(@"Repository\test.txt", "Product");
+            var productRepository = new ProductRepository(@"Repository\test3.txt", "ArrayOfProduct");
             productRepository.Add(product2);
-            productRepository.Add(product1);
-            productRepository.Add(product3);
-            productRepository.Add(product4);
-            productRepository.Add(product5);
+            productRepository.Add(product2);
+            var products = productRepository.GetAll();
+            productRepository.Delete(2);
+            //productRepository.Add(product1);
+            //productRepository.Add(product3);
+            //productRepository.Add(product4);
+            //productRepository.Add(product5);
             
             var headerControl = new HeaderControl();
             HeaderStackPanel.Children.Add(headerControl);

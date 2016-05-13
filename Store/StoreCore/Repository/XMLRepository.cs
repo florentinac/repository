@@ -1,17 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Xml;
+using System.Xml.Linq;
 
 namespace StoreCore.Repository
 {
     public class XMLRepository<T, Key> : IRepository<T, Key> where T: IIndexable
     {
-        private string path;
-        protected string fullPath;
+        private string path;        
         private string tabelName;
         private XMLHelper xmlHelper;
+        protected string fullPath;
         protected XmlDocument document;
+        protected XDocument doc;
 
         public XMLRepository(string fullPath, string tabelName)
         {         
@@ -19,20 +22,12 @@ namespace StoreCore.Repository
             this.path = Path.GetDirectoryName(this.fullPath);
             this.tabelName = tabelName;
 
-            InitalizeXmlDocument();
+            this.InitializationXDocument();
             this.xmlHelper = new XMLHelper();
             InitializeDirectory();
         }
 
-        private void InitalizeXmlDocument()
-        {
-            if (CheckIfFieExists())
-            {
-                this.document = new XmlDocument();
-                this.document.Load(this.fullPath);
-            }
-        }
-
+        
         public IEnumerable<T> GetAll()
         {
             if (!CheckIfFieExists())
@@ -69,51 +64,30 @@ namespace StoreCore.Repository
         }        
        
         public void Add(T item)
+        {                       
+            var count = doc.Root.Elements().Count();
+            item.Id = count + 1;
+
+            var objectSerialized = this.xmlHelper.Serialize(item);
+            var itemNode = XElement.Parse(objectSerialized);
+            var newNode = new XElement(itemNode);
+
+            doc.Element(this.tabelName).Add(newNode);
+            doc.Save(this.fullPath);
+
+        }
+
+        private void InitializationXDocument()
         {
             if (!CheckIfFieExists())
             {
-                this.AddFirstItem(item);
+                doc = new XDocument(new XElement(tabelName));
             }
             else
-            {               
-                this.AddNewItem(item);
-            }
-        }
-
-        private void AddFirstItem(T item)
-        {
-            var items = new List<T>();
-            item.Id = items.Count + 1;
-            items.Add(item);
-            this.WriteInXml(items);
-        }     
-
-        private void WriteInXml(List<T> items)
-        {
-            var objectSerialize = this.xmlHelper.Serialize(items);
-
-            using (var fileStream = File.Create(this.fullPath))
             {
-                using (var writer = new StreamWriter(fileStream))
-                {
-                    writer.Write(objectSerialize);
-                }
+                doc = XDocument.Load(this.fullPath);
             }
-        }
-
-        private void AddNewItem(T item)
-        {
-            item.Id = document.SelectNodes("/ArrayOf" + tabelName + "/" + tabelName).Count + 1;
-            var serializedElement = xmlHelper.Serialize(item);
-
-            var newNode = document.CreateNode(XmlNodeType.Element, "ArrafyOf" + tabelName, null);
-            newNode.InnerXml = serializedElement;
-
-            var node = newNode.SelectSingleNode(tabelName);
-            document.DocumentElement.AppendChild(node);
-
-            document.Save(this.fullPath);
-        }
+        }       
 
         public virtual void Update(Key id, T element)
         {          
@@ -121,14 +95,19 @@ namespace StoreCore.Repository
 
         public void Delete(Key id)
         {
-            var nodeToDelete =
-                this.document.SelectSingleNode("/ArrayOf" + tabelName + "/" + tabelName + "[@ID='" + id + "']");
-            UpdateIdNodes(id);
-            if (nodeToDelete != null)
-            {
-                nodeToDelete.ParentNode.RemoveChild(nodeToDelete);               
-                this.document.Save(this.fullPath);
-            }
+            var product = (from xml2 in doc.Descendants("Product")
+                           where xml2.Attribute("ID").Value == id.ToString()
+                           select xml2);
+            product.Remove();
+            doc.Save(this.fullPath);
+            //var nodeToDelete =
+            //    this.document.SelectSingleNode("/ArrayOf" + tabelName + "/" + tabelName + "[@ID='" + id + "']");
+            //UpdateIdNodes(id);
+            //if (nodeToDelete != null)
+            //{
+            //    nodeToDelete.ParentNode.RemoveChild(nodeToDelete);               
+            //    this.document.Save(this.fullPath);
+            //}
         }
 
         private void UpdateIdNodes(Key id)
@@ -150,5 +129,14 @@ namespace StoreCore.Repository
         {
             return File.Exists(Path.Combine(this.path, Path.GetFileName(this.fullPath)));
         }
+        private void InitalizeXmlDocument()
+        {
+            if (CheckIfFieExists())
+            {
+                this.document = new XmlDocument();
+                this.document.Load(this.fullPath);
+            }
+        }
+
     }
 }
