@@ -12,9 +12,9 @@
             <ColumnDefinition Width="25*"/>
         </Grid.ColumnDefinitions>
         <TextBlock Grid.Column="0" VerticalAlignment="Center"
-                   Text ="Category Of Products" TextWrapping="Wrap" FontWeight="DemiBold" FontSize="14" Margin="5"/>
+                   Text ="Category Of Products" TextWrapping="Wrap" Margin="5"/>
         <TextBlock Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"
-                   Text ="All products from the selected category" TextWrapping="Wrap" FontSize ="20"  FontWeight="Bold"/>
+                   Text ="All products from the selected category" TextWrapping="Wrap" FontSize ="18"  FontWeight="Bold"/>
         <TextBlock Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center"
                    Text ="UserName" TextWrapping="Wrap"/>
     </Grid>

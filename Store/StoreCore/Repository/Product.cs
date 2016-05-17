@@ -9,6 +9,8 @@ namespace StoreCore.Repository
         public int Id { get; set; }
         [XmlElement("Name")]
         public string Name { get; set; }
+        [XmlElement("Description")]
+        public string Description { get; set; }
         [XmlElement("Price")]
         public double Price { get; set; }
         [XmlElement("Category")]

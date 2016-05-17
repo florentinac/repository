@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Windows.Media.Imaging;
+using System.Xml.Linq;
 
 namespace StoreCore.Repository
 {
@@ -11,77 +13,24 @@ namespace StoreCore.Repository
         {
         }
 
-        public void UpdateStock(int id)
-        {         
-            var productToUpdate = this.document.SelectSingleNode("/ArrayOfProduct/Product[@ID='" + id + "']");
-
-            var stock = int.Parse(productToUpdate["Stock"].InnerText);
-            productToUpdate["Stock"].InnerText = (--stock).ToString();
-            
-            document.Save(this.fullPath);
-        }
-
         public override void Update(int id, Product product)
         {
-            var newProduct = this.document.SelectSingleNode("/ArrayOfProduct/Product[@ID='" + id + "']");
-            if (newProduct != null)
-            {
-                newProduct["Name"].InnerText = product.Name;
-                newProduct["Category"].InnerText = product.Category;
-                newProduct["Price"].InnerText = product.Price.ToString();
-                newProduct["Stock"].InnerText = product.Stock.ToString();
-            }
-            document.Save(this.fullPath);
-        }
+            var item = (from node in doc.Root.Elements("Product")
+                        where node.Attribute("ID").Value == id.ToString()
+                        select node).Single();
 
-        public IEnumerable<Product> GetByCategory(string category)
-        {
-            var products = this.GetAll();
-            var result = new List<Product>();
-            foreach (var product in products)
+            if (item != null)
             {
-                if (product.Category.Equals(category))
-                {
-                    result.Add(product);
-                }
+                item.Element("Name").Value = product.Name;
+                item.Element("Category").Value = product.Category;
+                item.Element("Price").Value = product.Price.ToString();
+                item.Element("Stock").Value = product.Stock.ToString();
+                item.Element("Image").Value = product.Image;
             }
 
-            return result;
+            doc.Save(this.fullPath);
         }
 
-        public BitmapImage GetImageByID(int id)
-        {
-            var products = this.GetAll();
-            var image = new BitmapImage();
-
-            foreach (var product in products)
-            {
-                if (product.Id.Equals(id))
-                {
-                    image.BeginInit();
-                    image.UriSource = new Uri(Directory.GetCurrentDirectory() + product.Image);
-                    image.EndInit();
-                    return image;
-                }
-            }     
-                         
-            return image;
-        }
-
-        public IEnumerable<string> GetAllCategory()
-        {
-            var products = this.GetAll();
-            var result = new List<string>();
-
-            foreach (var product in products)
-            {
-                if (!result.Contains(product.Category))
-                {
-                    result.Add(product.Category);
-                }
-            }
-
-            return result;
-        }
+        
     }
 }

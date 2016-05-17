@@ -13,7 +13,6 @@ namespace StoreCore.Repository
         private string tabelName;
         private XMLHelper xmlHelper;
         protected string fullPath;
-        protected XmlDocument document;
         protected XDocument doc;
 
         public XMLRepository(string fullPath, string tabelName)
@@ -74,9 +73,31 @@ namespace StoreCore.Repository
 
             doc.Element(this.tabelName).Add(newNode);
             doc.Save(this.fullPath);
+        }             
 
+        public virtual void Update(Key id, T element)
+        {          
+        }      
+
+        public void Delete(Key id)
+        {
+            var item = (from node in doc.Root.Elements(tabelName)
+                           where node.Attribute("ID").Value == id.ToString()
+                           select node);
+            item.Remove();
+            UpdateIdNodes(id);
+            doc.Save(this.fullPath);
         }
 
+        private void UpdateIdNodes(Key id)
+        {
+             var items = (doc.Root.Elements(tabelName)
+                 .Where(xml2 => string.Compare(xml2.Attribute("ID").Value, id.ToString(), StringComparison.Ordinal) > 0));
+            foreach (var item in items)
+            {
+                item.Attribute("ID").Value = (int.Parse(item.Attribute("ID").Value) - 1).ToString();
+            }
+        }
         private void InitializationXDocument()
         {
             if (!CheckIfFieExists())
@@ -86,37 +107,6 @@ namespace StoreCore.Repository
             else
             {
                 doc = XDocument.Load(this.fullPath);
-            }
-        }       
-
-        public virtual void Update(Key id, T element)
-        {          
-        }      
-
-        public void Delete(Key id)
-        {
-            var product = (from xml2 in doc.Descendants("Product")
-                           where xml2.Attribute("ID").Value == id.ToString()
-                           select xml2);
-            product.Remove();
-            doc.Save(this.fullPath);
-            //var nodeToDelete =
-            //    this.document.SelectSingleNode("/ArrayOf" + tabelName + "/" + tabelName + "[@ID='" + id + "']");
-            //UpdateIdNodes(id);
-            //if (nodeToDelete != null)
-            //{
-            //    nodeToDelete.ParentNode.RemoveChild(nodeToDelete);               
-            //    this.document.Save(this.fullPath);
-            //}
-        }
-
-        private void UpdateIdNodes(Key id)
-        {
-            var nodetoUpdateId =
-                this.document.SelectNodes("/ArrayOf" + tabelName + "/" + tabelName + "[@ID>'" + id + "']");
-            foreach (XmlNode node in nodetoUpdateId)
-            {
-                node.Attributes["ID"].Value = (int.Parse(node.Attributes["ID"].Value) - 1).ToString();
             }
         }
 
@@ -128,14 +118,6 @@ namespace StoreCore.Repository
         private bool CheckIfFieExists()
         {
             return File.Exists(Path.Combine(this.path, Path.GetFileName(this.fullPath)));
-        }
-        private void InitalizeXmlDocument()
-        {
-            if (CheckIfFieExists())
-            {
-                this.document = new XmlDocument();
-                this.document.Load(this.fullPath);
-            }
         }
 
     }

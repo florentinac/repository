@@ -1,0 +1,70 @@
+﻿<UserControl x:Class="Store.AddProductControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Store"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50*"/>
+            <ColumnDefinition Width="50*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock x:Name ="AddProductTitle"  
+                   Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center"
+                   Text="Add new Product" Foreground="Blue" FontSize="18" FontWeight="Bold"/>
+        <StackPanel Grid.Row="1" Grid.Column="0">
+            <DockPanel  VerticalAlignment="Center" Margin="20,20,0,0">
+                <TextBlock Text="Category:" FontSize="16"/>
+            </DockPanel>
+            <DockPanel  VerticalAlignment="Center" Margin="20,1,0,0">
+                <TextBlock Text="Name:" FontSize="16"/>
+            </DockPanel>
+            <DockPanel VerticalAlignment="Center" Margin ="20,1,0,0">
+                <TextBlock Text="Description:" FontSize="16"/>
+            </DockPanel>
+            <DockPanel VerticalAlignment="Center" Margin ="20,1,0,0">
+                <TextBlock Text="Stock:" FontSize="16"/>
+            </DockPanel>
+            <DockPanel VerticalAlignment="Center" Margin ="20,1,0,0">
+                <TextBlock Text="Price:" FontSize="16"/>
+            </DockPanel>
+            <DockPanel VerticalAlignment="Center" Margin ="20,1,0,0">
+                <TextBlock Text="Image:" FontSize="16"/>
+            </DockPanel>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="1">
+            <DockPanel  VerticalAlignment="Center" Margin="0,20,0,0">
+                <TextBox x:Name ="Category" FontSize="14"/>
+            </DockPanel>
+            <DockPanel  VerticalAlignment="Center" Margin="0,1,0,0">
+                <TextBox x:Name ="Name" FontSize="14"/>
+            </DockPanel>
+            <DockPanel VerticalAlignment="Center" >
+                <TextBox x:Name ="Description" 
+                         Margin="0,1,0,0" FontSize="14"
+                         AcceptsReturn="True" TextWrapping="Wrap"/>
+            </DockPanel>
+            <DockPanel VerticalAlignment="Center" Margin ="0,1,0,0">
+                <TextBox x:Name ="Stock" FontSize="14"/>
+            </DockPanel>
+            <DockPanel VerticalAlignment="Center" Margin ="0,1,0,0">
+                <TextBox x:Name ="Price" FontSize="14"/>
+            </DockPanel>
+            <DockPanel LastChildFill="False" Margin ="0,1,0,0">
+                <TextBox x:Name ="Image" Width="240" FontSize="12"/>
+                <Button x:Name ="SelectImage" Content ="Select" Width="50"
+                        Click="SelectImage_OnClick" FontSize="14" DockPanel.Dock="Right"/>
+            </DockPanel>
+            <DockPanel VerticalAlignment="Center" Margin ="0,20,0,0">
+                <Button x:Name ="SaveProduct" Content ="Save Product" Click="SaveProduct_OnClick" 
+                        Width="100" FontSize="14"/>
+            </DockPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>
