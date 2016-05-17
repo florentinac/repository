@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.Collections.Generic;
+using System.Globalization;
+using System.Windows;
 using System.Windows.Controls;
 using StoreCore.Repository;
 
@@ -9,9 +11,15 @@ namespace Store
     /// </summary>
     public partial class AddProductControl : UserControl
     {
-        public AddProductControl()
+        public AddProductControl(Product product)
         {
             InitializeComponent();
+            Name.Text = product.Name;
+            Category.Text = product.Category;
+            Description.Text = product.Description;
+            Stock.Text = product.Stock.ToString();
+            Price.Text = product.Price.ToString(CultureInfo.InvariantCulture);
+            Image.Text = product.Image;
         }
 
         private void SelectImage_OnClick(object sender, RoutedEventArgs e)

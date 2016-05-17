@@ -79,25 +79,10 @@ namespace StoreCore.Repository
         {          
         }      
 
-        public void Delete(Key id)
-        {
-            var item = (from node in doc.Root.Elements(tabelName)
-                           where node.Attribute("ID").Value == id.ToString()
-                           select node);
-            item.Remove();
-            UpdateIdNodes(id);
-            doc.Save(this.fullPath);
+        public virtual void Delete(Key id)
+        {            
         }
-
-        private void UpdateIdNodes(Key id)
-        {
-             var items = (doc.Root.Elements(tabelName)
-                 .Where(xml2 => string.Compare(xml2.Attribute("ID").Value, id.ToString(), StringComparison.Ordinal) > 0));
-            foreach (var item in items)
-            {
-                item.Attribute("ID").Value = (int.Parse(item.Attribute("ID").Value) - 1).ToString();
-            }
-        }
+       
         private void InitializationXDocument()
         {
             if (!CheckIfFieExists())

@@ -31,6 +31,23 @@ namespace StoreCore.Repository
             doc.Save(this.fullPath);
         }
 
-        
+        public override void Delete(int id)
+        {
+            var item = (from node in doc.Root.Elements("Product")
+                        where node.Attribute("ID").Value == id.ToString()
+                        select node);
+            item.Remove();
+            UpdateIdNodes(id);
+            doc.Save(this.fullPath); ;
+        }
+        private void UpdateIdNodes(int id)
+        {
+            var items = (doc.Root.Elements("Product")
+                .Where(xml2 => string.Compare(xml2.Attribute("ID").Value, id.ToString(), StringComparison.Ordinal) > 0));
+            foreach (var item in items)
+            {
+                item.Attribute("ID").Value = (int.Parse(item.Attribute("ID").Value) - 1).ToString();
+            }
+        }
     }
 }

@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="Store.BuyProduct"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Store"
+             mc:Ignorable="d" Height="96.491" Width="144.737">
+    <Grid>
+        <StackPanel>
+            <DockPanel VerticalAlignment="Center" Margin="0,20,0,0">
+                <TextBlock x:Name ="ProductPrice" Text="{Binding}" Foreground="Red" FontSize="18"/>
+            </DockPanel>
+            <DockPanel VerticalAlignment="Center">
+                <TextBlock x:Name ="ProductStock" Text="{Binding}" FontSize="14" />
+            </DockPanel>
+            <DockPanel VerticalAlignment="Center">
+                <Button x:Name ="BuyButton" Width="70" HorizontalAlignment="Left"
+                        Content ="Buy Product" FontSize ="12" Click ="BuyButton_OnClick "/>
+            </DockPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>

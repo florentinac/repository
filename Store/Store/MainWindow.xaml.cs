@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using StoreCore.Repository;
 
 namespace Store
 {
@@ -15,8 +16,8 @@ namespace Store
         private void MenuAdd_Click(object sender, RoutedEventArgs e)
         {
             SetVisibility(Visibility.Hidden);
-
-            var addProduct = new AddProductControl();
+            var product = new Product();
+            var addProduct = new AddProductControl(product);
             ProductStackPanel.Children.Add(addProduct);
         }
 
