@@ -4,12 +4,12 @@ using System.Data.SqlClient;
 
 namespace StoreCore.Repository
 {
-    public class SQLRepozitory<T, Key> : IRepository<T, Key> where T : IIndexable
+    public class SQLRepository<T, Key> : IRepository<T, Key> where T : IIndexable
     {
 
         private SqlConnection sqlContext;       
 
-        public SQLRepozitory(string databaseName, string serverName, string userName, string password)
+        public SQLRepository(string databaseName, string serverName, string userName, string password)
         {          
             InitializeRepository(databaseName, serverName, userName, password);
         }

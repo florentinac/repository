@@ -24,8 +24,8 @@ namespace Store
         {
             InitializeComponent();
 
-            var addControl = new AddProductControl(product);
-            StackPanel.Children.Add(addControl);
+            var addControl = new AddProductControl(product, this, true);
+            StackPanel.Children.Add(addControl);            
         }
     }
 }

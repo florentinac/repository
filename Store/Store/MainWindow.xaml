@@ -38,6 +38,8 @@
                 <Separator HorizontalAlignment="Left" Width="140" />
                 <MenuItem Header="View products" HorizontalAlignment="Left" Width="200"
                           Click="MenuView_Click" />
+                <MenuItem Header="Edit product" HorizontalAlignment="Left" Width="200"
+                          Click="MenuEdit_Click" />
             </MenuItem>
         </Menu>
     </Grid>

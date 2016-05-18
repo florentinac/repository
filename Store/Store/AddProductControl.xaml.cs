@@ -11,8 +11,16 @@ namespace Store
     /// </summary>
     public partial class AddProductControl : UserControl
     {
-        public AddProductControl(Product product)
+        private bool update;
+        private Product product;
+        private Window window;
+
+        public AddProductControl(Product product, Window window, bool update)
         {
+            this.window = window;
+            this.product = product;
+            this.update = update;
+
             InitializeComponent();
             Name.Text = product.Name;
             Category.Text = product.Category;
@@ -41,6 +49,24 @@ namespace Store
         private void SaveProduct_OnClick(object sender, RoutedEventArgs e)
         {
             var productRepository = new ProductRepository(@"Repository\Product.txt", "ArrayOfProduct");
+            if (!update)
+            {
+                AddProduct(productRepository);
+            }
+            else
+            {
+                UpdateProduct(productRepository);
+                window.Close();              
+            }
+        }
+
+        private void UpdateProduct(ProductRepository productRepository)
+        {
+            productRepository.Update(product.Id, GetProduct());
+        }
+
+        private void AddProduct(ProductRepository productRepository)
+        {
             productRepository.Add(GetProduct());
             Name.Clear();
             Category.Clear();
@@ -50,7 +76,6 @@ namespace Store
             Description.Clear();
 
             MessageBox.Show("The product was added successfully!");
-
         }
 
         private Product GetProduct()

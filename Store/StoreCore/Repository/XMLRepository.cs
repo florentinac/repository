@@ -26,7 +26,18 @@ namespace StoreCore.Repository
             InitializeDirectory();
         }
 
-        
+        public XMLRepository(string xmlString)
+        {
+            this.tabelName = tabelName;
+            var itemNode = XElement.Parse(xmlString);
+            var newNode = new XElement(itemNode);
+
+            doc = new XDocument(newNode);
+
+            this.xmlHelper = new XMLHelper();          
+        }
+
+
         public IEnumerable<T> GetAll()
         {
             if (!CheckIfFieExists())
@@ -82,7 +93,7 @@ namespace StoreCore.Repository
         public virtual void Delete(Key id)
         {            
         }
-       
+
         private void InitializationXDocument()
         {
             if (!CheckIfFieExists())

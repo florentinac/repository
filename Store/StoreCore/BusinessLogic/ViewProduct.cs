@@ -11,13 +11,17 @@ namespace StoreCore.BusinessLogic
 {
     public class ViewProduct
     {
-        private IEnumerable<Product> products;
-        private IRepository<Product, int> repository;
+        private IEnumerable<Product> products;      
 
         public ViewProduct(string fullPath, string tabelName)
         {
-            this.repository = new ProductRepository(fullPath, tabelName);
+            var repository = new ProductRepository(fullPath, tabelName);
             this.products = repository.GetAll();
+        }
+
+        public ViewProduct(IEnumerable<Product> products)
+        {
+            this.products = products;
         }
 
         public IEnumerable<Product> GetByCategory(string category)

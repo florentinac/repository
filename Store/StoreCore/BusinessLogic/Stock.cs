@@ -13,6 +13,11 @@ namespace StoreCore.BusinessLogic
             this.product = repository.GetById(id);
         }
 
+        public Stock(Product product)
+        {
+            this.product = product;
+        }
+
         public string GetStockMessage()
         {
             var stock = this.GetStockValue();
@@ -24,21 +29,20 @@ namespace StoreCore.BusinessLogic
 
             return stock <= 5 ? "Few in stock" : "In stock";
         }
-
-        private int GetStockValue()
-        {
-            return product.Stock;
-        }
-
         public void UpdateStock()
-        { 
+        {
             product.Stock = product.Stock - 1;
             repository.Update(product.Id, product);
         }
 
-        public bool CheckStockAvailablity()
+        public bool CheckStockAvailability()
         {
             return GetStockValue() != 0;
         }
+
+        private int GetStockValue()
+        {
+            return product.Stock;
+        }        
     }
 }

@@ -12,7 +12,6 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.RowSpan="2">
             <TextBlock Text="" FontSize="14" />
-            <TextBlock Text="" FontSize="14" />
             <DockPanel VerticalAlignment="Center">
                 <Button x:Name ="EditButton" Width="70" HorizontalAlignment="Left"
                         Content ="Edit" FontSize ="12" Click ="EditButton_OnClick "/>

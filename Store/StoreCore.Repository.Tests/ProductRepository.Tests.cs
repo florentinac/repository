@@ -12,22 +12,29 @@ namespace StoreCore.Tests
         [TestMethod]
         public void ShouldAddANewProduct()
         {
-            var productRepository = new ProductRepository(@"Repository\Products.txt", "Product");
-            productRepository.Add(new Product
+            var xmlString = "<ArrayOfProduct></ArrayOfProduct>";
+            var repository = new XMLRepository<Product,int>(xmlString, "ArrayOfProduct");
+            repository.Add(new Product
+            {
+                Category = "Food",
+                Name = "Bread",
+                Price = 10,
+                Stock = 4
+            });                      
+        }       
+        [TestMethod]
+        public void ShouldGetAllProduct()
+        {
+            var xmlString = "<ArrayOfProduct></ArrayOfProduct>";
+            var repository = new XMLRepository<Product, int>(xmlString, "ArrayOfProduct");
+            repository.Add(new Product
             {
                 Category = "Food",
                 Name = "Bread",
                 Price = 10,
                 Stock = 4
             });
-            Assert.IsTrue(File.Exists(@"Repository\Products.txt"));
-        }
-
-        [TestMethod]
-        public void ShouldGetAllProduct()
-        {
-            var productRepository = new ProductRepository(@"Repository\Products.txt", "Product");
-            var actualResult = productRepository.GetAll();
+            var actualResult = repository.GetAll();
             Assert.AreEqual(3, actualResult.Count());
         }
 

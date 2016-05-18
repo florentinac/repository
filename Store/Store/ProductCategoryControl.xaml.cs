@@ -11,9 +11,11 @@ namespace Store
     {
         private StackPanel stackPanel;        
         private ViewProduct viewProduct;
+        private bool isEditable;
 
-        public ProductCategoryControl(StackPanel stackPanel)
+        public ProductCategoryControl(StackPanel stackPanel, bool isEditable)
         {
+            this.isEditable = isEditable;
             this.stackPanel = stackPanel;
             InitializeComponent();
  
@@ -31,7 +33,7 @@ namespace Store
                 var products = this.viewProduct.GetByCategory(item.ToString());
                 foreach (var product in products)
                 {
-                    var productControl = new ProductControl(product);
+                    var productControl = new ProductControl(product, isEditable);
                     this.stackPanel.Children.Add(productControl);                   
                 }
             }

@@ -67,7 +67,7 @@
     <Compile Include="Repository\DBContext.cs" />
     <Compile Include="Repository\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\SQLRepozitory.cs" />
+    <Compile Include="Repository\SQLRepository.cs" />
     <Compile Include="Repository\XMLHelper.cs" />
     <Compile Include="Repository\XMLRepository.cs" />
   </ItemGroup>

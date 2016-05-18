@@ -11,9 +11,11 @@ namespace Store
     public partial class ProductControl : UserControl
     {
         private Product product;
+        private bool isEditable;
 
-        public ProductControl(Product product)
+        public ProductControl(Product product, bool isEditable)
         {
+            this.isEditable = isEditable;
             this.product = product;   
                    
             InitializeComponent();
@@ -26,8 +28,16 @@ namespace Store
             ProductName.Text = this.product.Name;
             ProductDescription.Text = this.product.Description;
 
-            var buyProduct = new EditControl(product);
-            ProductOperation.Children.Add(buyProduct);          
+            if (!isEditable)
+            {
+                var buyProduct = new BuyProduct(product);
+                ProductOperation.Children.Add(buyProduct);
+            }
+            else
+            {
+                var editButtons = new EditControl(product);
+                ProductOperation.Children.Add(editButtons);
+            }
         }     
     }
 }

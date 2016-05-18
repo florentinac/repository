@@ -23,6 +23,7 @@ namespace StoreCore.Repository
             {
                 item.Element("Name").Value = product.Name;
                 item.Element("Category").Value = product.Category;
+                item.Element("Description").Value = product.Description;
                 item.Element("Price").Value = product.Price.ToString();
                 item.Element("Stock").Value = product.Stock.ToString();
                 item.Element("Image").Value = product.Image;

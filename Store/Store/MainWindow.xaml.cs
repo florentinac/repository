@@ -17,7 +17,7 @@ namespace Store
         {
             SetVisibility(Visibility.Hidden);
             var product = new Product();
-            var addProduct = new AddProductControl(product);
+            var addProduct = new AddProductControl(product, this, false);
             ProductStackPanel.Children.Add(addProduct);
         }
 
@@ -28,7 +28,7 @@ namespace Store
             var headerControl = new HeaderControl();
             HeaderStackPanel.Children.Add(headerControl);
 
-            var productCategoryControl = new ProductCategoryControl(ProductStackPanel);
+            var productCategoryControl = new ProductCategoryControl(ProductStackPanel, false);
             CategoryListStackPanel.Children.Add(productCategoryControl);
         }
 
@@ -39,6 +39,17 @@ namespace Store
             HeaderStackPanel.Children.Clear();
             HeaderStackPanel.Visibility = visibility;
             CategoryListStackPanel.Visibility = visibility;
+        }
+
+        private void MenuEdit_Click(object sender, RoutedEventArgs e)
+        {
+            SetVisibility(Visibility.Visible);
+
+            var headerControl = new HeaderControl();
+            HeaderStackPanel.Children.Add(headerControl);
+
+            var productCategoryControl = new ProductCategoryControl(ProductStackPanel, true);
+            CategoryListStackPanel.Children.Add(productCategoryControl);
         }
     }
     

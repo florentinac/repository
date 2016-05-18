@@ -43,7 +43,7 @@ namespace Store
        
         private void DisableBuyButton()
         {
-            if (!stock.CheckStockAvailablity())
+            if (!stock.CheckStockAvailability())
             {
                 BuyButton.IsEnabled = false;
             }

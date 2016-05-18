@@ -33,17 +33,5 @@
         <StackPanel x:Name ="ProductOperation" 
                     Grid.Row="0" Grid.Column="3" Grid.RowSpan="4">
         </StackPanel>
-                <!--<StackPanel Grid.Row="0" Grid.Column="3" Grid.RowSpan="4">
-            <DockPanel VerticalAlignment="Center" Margin="0,20,0,0">
-                <TextBlock x:Name ="ProductPrice" Text="{Binding}" Foreground="Red" FontSize="18"/>
-            </DockPanel>
-            <DockPanel VerticalAlignment="Center">
-                <TextBlock x:Name ="ProductStock" Text="{Binding}" FontSize="14" />
-            </DockPanel>
-            <DockPanel VerticalAlignment="Center">
-                <Button x:Name ="BuyButton" Width="70" HorizontalAlignment="Left"
-                        Content ="Buy Product" FontSize ="12" Click ="BuyButton_OnClick "/>
-            </DockPanel>
-        </StackPanel>-->
     </Grid>
 </UserControl>
