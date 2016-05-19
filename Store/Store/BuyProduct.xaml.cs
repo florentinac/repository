@@ -23,20 +23,24 @@ namespace Store
     public partial class BuyProduct : UserControl
     {
         private Stock stock;
-
+        private Product product;
         public BuyProduct(Product product)
         {
+            this.product = product;
             InitializeComponent();
             this.stock = new Stock(product.Id, @"Repository\Product.txt", "ArrayOfProduct");
             DisableBuyButton();
+           
             ProductPrice.Text = product.Price + "lei";
             ProductStock.Text = stock.GetStockMessage();
         }
 
         private void BuyButton_OnClick(object sender, RoutedEventArgs e)
         {
-            stock.UpdateStock();
-            MessageBox.Show("The product was added to the cart");
+            stock.UpdateStock(int.Parse(Quantity.Text));
+            var repository = new XMLRepository<ShippingCart, int>(@"Repository\ShoppingCart.txt", "ArrayOfProduct");
+            repository.Add(new ShippingCart { IdProduct = product.Id.ToString(), Quantity = int.Parse(Quantity.Text) });
+            MessageBox.Show("The product was added to the cart");    
             ProductStock.Text = stock.GetStockMessage();
             DisableBuyButton();
         }

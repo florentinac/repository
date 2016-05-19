@@ -64,6 +64,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ShoppingCart\ProductDetails.xaml.cs">
+      <DependentUpon>ProductDetails.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ShoppingCart\ShoppingCart.xaml.cs">
+      <DependentUpon>ShoppingCart.xaml</DependentUpon>
+    </Compile>
     <Page Include="AddProductControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -116,6 +122,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ProductControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ShoppingCart\ProductDetails.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ShoppingCart\ShoppingCart.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

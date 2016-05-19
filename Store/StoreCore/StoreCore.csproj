@@ -54,11 +54,13 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessLogic\ShippingProduct.cs" />
     <Compile Include="BusinessLogic\Stock.cs" />
     <Compile Include="BusinessLogic\ViewProduct.cs" />
     <Compile Include="Repository\Address.cs" />
     <Compile Include="Repository\Category.cs" />
     <Compile Include="Repository\ProductRepository.cs" />
+    <Compile Include="Repository\ShippingCart.cs" />
     <Compile Include="Repository\StoreDBContext.cs" />
     <Compile Include="Repository\Tranzaction.cs" />
     <Compile Include="Repository\User.cs" />

@@ -7,7 +7,7 @@ namespace StoreCore.BusinessLogic
         private IRepository<Product, int> repository;
         private Product product;
 
-        public Stock(int id,string path, string tabelName)
+        public Stock(int id, string path, string tabelName)
         {          
             this.repository = new ProductRepository(path, tabelName);
             this.product = repository.GetById(id);
@@ -29,9 +29,9 @@ namespace StoreCore.BusinessLogic
 
             return stock <= 5 ? "Few in stock" : "In stock";
         }
-        public void UpdateStock()
+        public void UpdateStock(int quantity)
         {
-            product.Stock = product.Stock - 1;
+            product.Stock = product.Stock - quantity;
             repository.Update(product.Id, product);
         }
 
