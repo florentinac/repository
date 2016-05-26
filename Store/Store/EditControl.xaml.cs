@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using StoreCore.Models;
 using StoreCore.Repository;
 
 namespace Store
@@ -22,31 +23,16 @@ namespace Store
     /// </summary>
     public partial class EditControl : UserControl
     {
-        private Product product;
-        private IRepository<Product, int> repository; 
-
-        public EditControl(Product product)
+ 
+        public EditControl()
         {
-            this.product = product;
-            this.repository = new ProductRepository(@"Repository\Product.txt", "ArrayOfProduct");
             InitializeComponent();
         }
 
         private void EditButton_OnClick(object sender, RoutedEventArgs e)
         {
-            var editWindow = new EditWindow(product);
+            var editWindow = new EditWindow();
             editWindow.Show();
-        }
-
-        private void DeleteButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            var objResult = MessageBox.Show("Are You sure You want to delete?", 
-                                            "Delete Confirmation", MessageBoxButton.YesNo);
-            if (objResult == MessageBoxResult.Yes)
-            {
-                repository.Delete(product.Id);
-            }
-
-        }
+        }       
     }
 }

@@ -13,7 +13,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using StoreCore.BusinessLogic;
+using StoreCore.Models;
 using StoreCore.Repository;
+using StoreCore.ViewModels;
 
 namespace Store
 {
@@ -22,39 +24,10 @@ namespace Store
     /// </summary>
     public partial class BuyProduct : UserControl
     {
-        private Stock stock;
-        private Product product;
-        public BuyProduct(Product product)
+        public BuyProduct()
         {
-            this.product = product;
             InitializeComponent();
-            this.stock = new Stock(product.Id, @"Repository\Product.txt", "ArrayOfProduct");
-            DisableBuyButton();
-           
-            ProductPrice.Text = product.Price + "lei";
-            ProductStock.Text = stock.GetStockMessage();
-        }
-
-        private void BuyButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            stock.UpdateStock(int.Parse(Quantity.Text));
-            var repository = new XMLRepository<ShippingCart, int>(@"Repository\ShoppingCart.txt", "ArrayOfProduct");
-            repository.Add(new ShippingCart { IdProduct = product.Id.ToString(), Quantity = int.Parse(Quantity.Text) });
-            MessageBox.Show("The product was added to the cart");    
-            ProductStock.Text = stock.GetStockMessage();
-            DisableBuyButton();
-        }
-       
-        private void DisableBuyButton()
-        {
-            if (!stock.CheckStockAvailability())
-            {
-                BuyButton.IsEnabled = false;
-            }
-            else
-            {
-                BuyButton.IsEnabled = true;
-            }
-        }
+            DataContext = new ProductViewModel();              
+        }       
     }
 }

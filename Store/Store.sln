@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store", "Store\Store.csproj", "{816BA0A2-CF3B-4A9B-9544-B7107482F5DB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Views", "Store\Views.csproj", "{816BA0A2-CF3B-4A9B-9544-B7107482F5DB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreCore", "StoreCore\StoreCore.csproj", "{5F046CE1-3161-42FB-BCB9-C05B14719B5C}"
 EndProject

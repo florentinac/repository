@@ -4,15 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Store"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" Width="114.441" Height="390.736">
     <Grid>
-        <ListBox x:Name="ProductsList"        
-                 SelectionChanged="OuterListBox_SelectionChanged">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding}" FontSize="16"/>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
+        <ListBox ItemsSource="{Binding Categoryes}" SelectedItem="{Binding Category}">
+             <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding SelectChangedCommand}" CommandParameter="{Binding Products}"/>
+                </i:EventTrigger>
+             </i:Interaction.Triggers>
         </ListBox>
     </Grid>
 </UserControl>

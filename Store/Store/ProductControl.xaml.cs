@@ -1,7 +1,8 @@
-﻿using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 using StoreCore.Repository;
 using StoreCore.BusinessLogic;
+using StoreCore.Models;
+using StoreCore.ViewModels;
 
 namespace Store
 {
@@ -10,32 +11,26 @@ namespace Store
     /// </summary>
     public partial class ProductControl : UserControl
     {
-        private Product product;
         private bool isEditable;
 
-        public ProductControl(Product product, bool isEditable)
+        public ProductControl(bool isEditable)
         {
             this.isEditable = isEditable;
-            this.product = product;   
                    
             InitializeComponent();
-            SetComponent();
+            this.DataContext = new ProductViewModel();
+            this.SetComponent();
         }
         private void SetComponent()
-        {
-            var viewProduct = new ViewProduct(@"Repository\Product.txt", "ArrayOfProduct");           
-            ProductImage.Source = viewProduct.GetImageById(this.product.Id);
-            ProductName.Text = this.product.Name;
-            ProductDescription.Text = this.product.Description;
-
+        {                      
             if (!isEditable)
             {
-                var buyProduct = new BuyProduct(product);
+                var buyProduct = new BuyProduct();
                 ProductOperation.Children.Add(buyProduct);
             }
             else
             {
-                var editButtons = new EditControl(product);
+                var editButtons = new EditControl();
                 ProductOperation.Children.Add(editButtons);
             }
         }     

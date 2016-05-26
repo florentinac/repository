@@ -1,4 +1,5 @@
-﻿using StoreCore.Repository;
+﻿using StoreCore.Models;
+using StoreCore.Repository;
 
 namespace StoreCore.BusinessLogic
 {
@@ -7,9 +8,9 @@ namespace StoreCore.BusinessLogic
         private IRepository<Product, int> repository;
         private Product product;
 
-        public Stock(int id, string path, string tabelName)
+        public Stock(IRepository<Product, int> repository, int id)
         {          
-            this.repository = new ProductRepository(path, tabelName);
+            this.repository = repository;
             this.product = repository.GetById(id);
         }
 

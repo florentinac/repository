@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using StoreCore.Models;
 using StoreCore.Repository;
 
 namespace Store
@@ -20,11 +21,11 @@ namespace Store
     /// </summary>
     public partial class EditWindow : Window
     {       
-        public EditWindow(Product product)
+        public EditWindow()
         {
             InitializeComponent();
 
-            var addControl = new AddProductControl(product, this, true);
+            var addControl = new AddProductControl();
             StackPanel.Children.Add(addControl);            
         }
     }

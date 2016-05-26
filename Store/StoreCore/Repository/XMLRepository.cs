@@ -28,7 +28,6 @@ namespace StoreCore.Repository
 
         public XMLRepository(string xmlString)
         {
-            this.tabelName = tabelName;
             var itemNode = XElement.Parse(xmlString);
             var newNode = new XElement(itemNode);
 
@@ -36,7 +35,6 @@ namespace StoreCore.Repository
 
             this.xmlHelper = new XMLHelper();          
         }
-
 
         public IEnumerable<T> GetAll()
         {

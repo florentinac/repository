@@ -21,7 +21,7 @@
             </DockPanel>
             <DockPanel VerticalAlignment="Center">
                 <Button x:Name ="DeleteButton" Width="70" HorizontalAlignment="Left"
-                        Content ="Delete" FontSize ="12" Click ="DeleteButton_OnClick "/>
+                        Content ="Delete" FontSize ="12" Command ="{Binding DeleteCommand}"/>
             </DockPanel>
         </StackPanel>
     </Grid>

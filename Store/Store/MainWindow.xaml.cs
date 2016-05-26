@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-using StoreCore.Repository;
+using StoreCore.ViewModels;
 
 namespace Store
 {
@@ -10,14 +10,16 @@ namespace Store
     {
         public MainWindow()
         {
-            InitializeComponent();             
+            InitializeComponent();
+
+            DataContext = new ProductViewModel();
         }
 
         private void MenuAdd_Click(object sender, RoutedEventArgs e)
         {
             SetVisibility(Visibility.Hidden);
-            var product = new Product();
-            var addProduct = new AddProductControl(product, this, false);
+
+            var addProduct = new AddProductControl();
             ProductStackPanel.Children.Add(addProduct);
         }
 
@@ -28,7 +30,7 @@ namespace Store
             var headerControl = new HeaderControl();
             HeaderStackPanel.Children.Add(headerControl);
 
-            var productCategoryControl = new ProductCategoryControl(ProductStackPanel, false);
+            var productCategoryControl = new ProductCategoryControl(ProductStackPanel);
             CategoryListStackPanel.Children.Add(productCategoryControl);
         }
 
@@ -48,7 +50,7 @@ namespace Store
             var headerControl = new HeaderControl();
             HeaderStackPanel.Children.Add(headerControl);
 
-            var productCategoryControl = new ProductCategoryControl(ProductStackPanel, true);
+            var productCategoryControl = new ProductCategoryControl(ProductStackPanel);
             CategoryListStackPanel.Children.Add(productCategoryControl);
         }
     }

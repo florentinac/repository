@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using StoreCore.Repository;
 using Should;
+using StoreCore.Models;
 
 namespace StoreCore.Tests
 {

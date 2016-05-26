@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace StoreCore.Repository
+namespace StoreCore.Models
 {
     public class Tranzaction
     {

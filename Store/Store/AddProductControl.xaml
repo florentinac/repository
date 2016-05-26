@@ -40,29 +40,29 @@
         </StackPanel>
         <StackPanel Grid.Column="1" Grid.Row="1">
             <DockPanel  VerticalAlignment="Center" Margin="0,20,0,0">
-                <TextBox x:Name ="Category" FontSize="14"/>
+                <TextBox x:Name ="Category" Text ="{Binding Category}" FontSize="14"/>
             </DockPanel>
             <DockPanel  VerticalAlignment="Center" Margin="0,1,0,0">
-                <TextBox x:Name ="Name" FontSize="14"/>
+                <TextBox x:Name ="Name" Text ="{Binding Name}" FontSize="14"/>
             </DockPanel>
             <DockPanel VerticalAlignment="Center" >
                 <TextBox x:Name ="Description" 
-                         Margin="0,1,0,0" FontSize="14"
+                         Margin="0,1,0,0" FontSize="14" Text ="{Binding Description}"
                          AcceptsReturn="True" TextWrapping="Wrap"/>
             </DockPanel>
             <DockPanel VerticalAlignment="Center" Margin ="0,1,0,0">
-                <TextBox x:Name ="Stock" FontSize="14"/>
+                <TextBox x:Name ="Stock" FontSize="14" Text ="{Binding Stock}"/>
             </DockPanel>
             <DockPanel VerticalAlignment="Center" Margin ="0,1,0,0">
-                <TextBox x:Name ="Price" FontSize="14"/>
+                <TextBox x:Name ="Price" FontSize="14" Text="{Binding Price}"/>
             </DockPanel>
             <DockPanel LastChildFill="False" Margin ="0,1,0,0">
-                <TextBox x:Name ="Image" Width="240" FontSize="12"/>
-                <Button x:Name ="SelectImage" Content ="Select" Width="50"
-                        Click="SelectImage_OnClick" FontSize="14" DockPanel.Dock="Right"/>
+                <TextBox x:Name ="Image" Width="240" FontSize="12" Text="{Binding Image}"/>
+                <Button x:Name ="SelectImage" Content ="Select" Width="50" 
+                        Command="{Binding SelectCommand}" FontSize="14" DockPanel.Dock="Right"/>
             </DockPanel>
             <DockPanel VerticalAlignment="Center" Margin ="0,20,0,0">
-                <Button x:Name ="SaveProduct" Content ="Save Product" Click="SaveProduct_OnClick" 
+                <Button x:Name ="SaveProduct" Content ="Save Product" Command="{Binding SaveCommand}"
                         Width="100" FontSize="14"/>
             </DockPanel>
         </StackPanel>

@@ -1,5 +1,7 @@
 ﻿
-namespace StoreCore.Repository
+using StoreCore.Repository;
+
+namespace StoreCore.Models
 {
     public class User: IIndexable
     {
